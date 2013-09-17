@@ -25,9 +25,6 @@
       <InformationObject name="StockCompanyCollection" designDesc="Collection of stock companies">
         <CollectionFor contentInformationObjectName="StockCompany" collectionType="Master" />
       </InformationObject>
-      <InformationObject name="PortfolioStockCompanyCollection" designDesc="Collection of stock companies">
-        <CollectionFor contentInformationObjectName="StockCompany" collectionType="Master" />
-      </InformationObject>
       <InformationObject name="ChartPoint" designDesc="Represents a single point which can be represented in a chart">
         <InformationItems>
           <InformationItem name="Timestamp" logicalDataType="Text_Short"/>
@@ -40,7 +37,7 @@
       <InformationObject name="Portfolio" designDesc="Represents a single portfolio">
         <InformationItems>
           <InformationItem name="PortfolioName" logicalDataType="Text_Short"/>
-          <InformationItem name="StockCompanies" logicalDataType="InformationObject" informationObjectName="PortfolioStockCompanyCollection"/>
+          <InformationItem name="StockCompanies" logicalDataType="InformationObject" informationObjectName="StockCompanyCollection" />
         </InformationItems>
       </InformationObject>
       <InformationObject name="PortfolioCollection" designDesc="Collection of portfolios">
@@ -132,9 +129,6 @@
             <MethodExecute name="RemovePortfolio" designDesc="Removes the portfolio" state="designApproved">
               <Target name="Portfolio"/>
             </MethodExecute>
-            <MethodExecute name="StoreObjects" designDesc="Store modified objects" state="designApproved">
-              <Target name="Portfolio"/>
-            </MethodExecute>
           </SequentialExecution>
         </Execution>
       </Operation>
@@ -174,13 +168,13 @@
         </Parameters>
         <Execution>
           <SequentialExecution>
-            <TargetDefinition dataType="Portfolio" name="Portfolio" designDesc="The portfolio from which the stock company should be removed" state="designApproved">
+            <TargetDefinition dataType="Portfolio" name="Portfolio" designDesc="The portfolio to which the stock company should be added" state="designApproved">
               <Parameter name="PortfolioId"/>
             </TargetDefinition>
             <TargetDefinition dataType="StockCompany" name="StockCompany" designDesc="The stockcompany which should be removed" state="designApproved">
               <Parameter name="StockCompanyId"/>
             </TargetDefinition>
-            <MethodExecute name="RemoveStockCompanyToPortfolio" designDesc="Removes the stock company from the portfolio" state="designApproved">
+            <MethodExecute name="RemoveStockCompanyFromPortfolio" designDesc="Removes the stock company from the portfolio" state="designApproved">
               <Target name="Portfolio"/>
               <Target name="StockCompany" />
             </MethodExecute>
